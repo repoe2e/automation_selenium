@@ -23,11 +23,13 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
-      steps {
-        // Realize a implantação do pacote, por exemplo, enviando-o para um servidor de aplicativos
-        // ou fazendo o upload para um repositório de artefatos
-      }
-    }
+   stage('Build') {
+  steps {
+    checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
+             userRemoteConfigs: [[url: 'https://github.com/repoe2e/automation_selenium.git']]])
+    sh 'mvn clean compile'
+  }
+}
+
   }
 }
